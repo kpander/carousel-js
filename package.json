@@ -1,7 +1,7 @@
 {
   "name": "@kpander/carousel-js",
-  "version": "1.0.0",
-  "description": "Simple vanilla JS carousel for displaying different cards in a group",
+  "version": "2.0.0",
+  "description": "Simple vanilla JS carousel web component for displaying different cards in a group",
   "homepage": "https://github.com/kpander/carousel-js",
   "author": {
     "name": "Kendall Anderson",
