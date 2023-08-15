@@ -1,6 +1,6 @@
 # carousel-js
 
-Simple vanilla js carousel, for displaying different cards in a group.
+Simple vanilla js carousel web component, for displaying different cards in a group.
 
 
 # Installation
@@ -31,81 +31,58 @@ $ cp "node_modules/@kpander/carousel-js/dist/Carousel.js" ./src/js
 ## Example 1: Basic usage
 
 ```html
-<div data-csjs-container>
+<carousel-ithreads>
 
-  <div data-csjs-item>
+  <div>
     <p>I am the first item</p>
   </div>
 
-  <div data-csjs-item>
+  <div>
     <ul>
       <li>I am the second carousel item</li>
       <li>I am the second carousel item</li>
     </ul>
   </div>
 
-  <div data-csjs-item>
+  <div>
     <img src="https://placekitten.com/640/480">
     <p>I am the third item, a photo</p>
   </div>
 
-</div>
-
-<button data-csjs-previous>Previous slide</button>
-<button data-csjs-next>Next slide</button>
+</carousel-ithreads>
 ```
 
 In the example above:
 
-  - The attribute `data-csjs-container` defines a carousel container
-  - Each item within the container with a `data-csjs-item` attribute can be shown/hidden in the carousel
-  - An element with `data-csjs-previous` will show the previous slide when clicked
-  - An element with `data-csjs-next` will show the next slide when clicked
+  - Each top-level item within the `<carousel-ithreads>` container will be considered a 'slide' in the carousel
+  - A button will be created for both a 'Previous' and 'Next' button to control the carousel
 
-In this example, there are 3 slides and buttons for navigating forward and backward.
-
-
-## Multiple carousels on the same page
-
-<!--
-
-```html
-<div data-csjs-container data-csjs-id="1">
-
-  <div data-csjs-item>
-    <p>I am the first item</p>
-  </div>
-
-  <div data-csjs-item>
-    <ul>
-      <li>I am the second carousel item</li>
-      <li>I am the second carousel item</li>
-    </ul>
-  </div>
-
-  <div data-csjs-item>
-    <img src="https://placekitten.com/640/480">
-    <p>I am the third item, a photo</p>
-  </div>
-
-</div>
-
-<button data-csjs-id="1" data-csjs-previous>Previous slide</button>
-<button data-csjs-id="1" data-csjs-next>Next slide</button>
-`
-
--->
+In this example above, there are 3 slides.
 
 
 
 # API
 
-## `<int> window.carousel.previous()`
+## `<int> (element).previous()`
 
-## `<int> window.carousel.next()`
+```js
+const el = document.querySelector("carousel-ithreads");
+el.previous();
+```
 
-## `<int> window.carousel.activate(<int> index)`
+## `<int> (element).next()`
 
+```js
+const el = document.querySelector("carousel-ithreads");
+el.next();
+```
+
+## `<int> (element).activate(<int> index)`
+
+```js
+const el = document.querySelector("carousel-ithreads");
+el.activate(2);
+```
 
 
 # Developers
@@ -131,7 +108,10 @@ $ npm publish
 
 # TODO
 
-  - Allow multiple carousels on the same page
+  - Option to disable wrap for 'Next' on the last slide, 'Previous' on the first
+  - Option to set the slide to display on init
+  - Option to set the text labels for the buttons
+  - Styling options
 
 
 # Maintainer

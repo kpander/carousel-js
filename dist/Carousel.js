@@ -1,4 +1,15 @@
 /* https://github.com/kpander/carousel-js */
-/* dist/Carousel.js v1.0.0 Mon Aug 14 2023 21:07:37 GMT-0400 (Eastern Daylight Saving Time) */
+/* dist/Carousel.js v2.0.0 Tue Aug 15 2023 15:31:16 GMT-0400 (Eastern Daylight Saving Time) */
 
-"use strict";class Carousel{constructor(){this.state={active:0,total:0},this._countItems(),this.activate(this.state.active),this.bindButtons()}_countItems(){var t=document.querySelectorAll("[data-csjs-container] [data-csjs-item]");t.forEach((t,e)=>{t.setAttribute("data-csjs-item-id",e),t.setAttribute("hidden","hidden")}),this.state.total=t.length}activate(t){(t=t>this.state.total-1?0:t)<0&&(t=this.state.total-1);var e=`[data-csjs-item-id="${this.state.active}"]`,e=(document.querySelector(e).setAttribute("hidden","hidden"),this.state.active=t,`[data-csjs-item-id="${this.state.active}"]`);return document.querySelector(e).removeAttribute("hidden"),this.state.active}next(){return this.activate(this.state.active+1)}previous(){return this.activate(this.state.active-1)}bindButtons(){const e=this;document.querySelectorAll("[data-csjs-previous]").forEach(t=>{t.addEventListener("click",e.previous.bind(this))}),document.querySelectorAll("[data-csjs-next]").forEach(t=>{t.addEventListener("click",e.next.bind(this))})}}const carousel_init=function(){window.carousel=new Carousel};document.addEventListener("DOMContentLoaded",carousel_init);
+"use strict";class CarouselIthreads extends HTMLElement{constructor(){super(),this.attachShadow({mode:"open"}),this.onMutation=this.onMutation.bind(this);var t=document.createElement("template"),t=(t.innerHTML=`
+<style>
+:host {
+  display: block;
+}
+</style>
+<div id="container">
+  <slot></slot>
+</div>
+<button id="btnPrev">Previous</button>
+<button id="btnNext">Next</button>
+`,t.content.cloneNode(!0));this.shadowRoot.appendChild(t)}connectedCallback(){this.observer=new MutationObserver(this.onMutation),this.observer.observe(this,{childList:!0}),this.state={current:0,total:0},this.shadowRoot.getElementById("btnPrev").addEventListener("click",this.previous.bind(this)),this.shadowRoot.getElementById("btnNext").addEventListener("click",this.next.bind(this))}disconnectedCallback(){this.observer.disconnect()}onMutation(t){var e=[];for(const s of t)e.push(...s.addedNodes);this.init()}init(){this.state.total=[...this.childNodes].filter(t=>t.nodeType===Node.ELEMENT_NODE).length,this.activate(this.state.current)}previous(){return this.activate(this.state.current-1)}next(){return this.activate(this.state.current+1)}activate(s){return(s=s<0?this.state.total-1:s)>=this.state.total&&(s=0),this.state.current=s,[...this.childNodes].filter(t=>t.nodeType===Node.ELEMENT_NODE).forEach((t,e)=>{e===s?t.removeAttribute("hidden"):t.setAttribute("hidden","hidden")}),this.state.current}}customElements.define("carousel-ithreads",CarouselIthreads);
