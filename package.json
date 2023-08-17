@@ -1,6 +1,6 @@
 {
   "name": "@kpander/carousel-js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Simple vanilla JS carousel web component for displaying different cards in a group",
   "homepage": "https://github.com/kpander/carousel-js",
   "author": {
@@ -23,6 +23,7 @@
   },
   "keywords": [
     "carousel",
+    "component",
     "vanillajs"
   ],
   "license": "MIT",

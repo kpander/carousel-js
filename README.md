@@ -60,6 +60,74 @@ In the example above:
 In this example above, there are 3 slides.
 
 
+## Example 2: Providing a custom HTML template
+
+Don't like the positioning of the buttons? Want to change the markup? You can provide something completely custom.
+
+Use the attribute `template-id` on the `<carousel-ithreads>` element. The value should be the `id` of another DOM element. The `innerHTML` of that element will be used as the HTML of the carousel.
+
+This example has 2 carousels on the same page.
+
+  - The first one uses a custom template for markup
+  - The second one uses the default markup
+
+```html
+<!doctype html>
+<html>
+<head>
+  <script src="Carousel.js"></script>
+</head>
+<body>
+
+  <template id="my-custom-template">
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <p>Something before the custom carousel</p>
+    <button id="btnPrev">Previous BUTTON Is Here</button>
+    <div id="container">
+      <slot></slot>
+    </div>
+    <button id="btnNext">Next BUTTON Is Here</button>
+    <p>Something after the custom carousel</p>
+  </template>
+
+  <h2>Carousel with custom template markup</h2>
+  <carousel-ithreads template-id="my-custom-template">
+    <div data-slide>
+      <p>Custom Carousel: I am the first item</p>
+    </div>
+    <div data-slide>
+      <p>Custom Carousel: I am the second item</p>
+    </div>
+  </carousel-ithreads>
+
+  <hr>
+
+  <h2>Default carousel</h2>
+  <carousel-ithreads>
+    <div data-slide>
+      <p>Default Carousel: I am the first item</p>
+    </div>
+    <div data-slide>
+      <p>Default Carousel: I am the second item</p>
+    </div>
+  </carousel-ithreads>
+
+</body>
+</html>
+```
+
+**Notes:**
+
+  - The `(element).previous()` method will be attached to any item with `id="btnPrev"`
+  - The `(element).next()` method will be attached to any item with `id="btnNext"`
+  - The `<carousel-ithreads>` children will be inserted into the `<slot></slot>` element
+    - If you don't provide the `<slot></slot>` element, no children will be inserted into the carousel
+    - That makes for a very boring (and empty) carousel...
+
 
 # API
 
