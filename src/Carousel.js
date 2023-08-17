@@ -11,9 +11,15 @@ class CarouselIthreads extends HTMLElement {
 
     // https://stackoverflow.com/questions/68475272/when-can-we-access-the-children-elements-of-a-custom-component-using-javascript
     this.onMutation = this.onMutation.bind(this);
+  }
 
-    const template = document.createElement("template");
-    template.innerHTML = `
+  _getTemplate() {
+    const elTemplate = document.getElementById(this.getAttribute("template-id"));
+    return elTemplate ? elTemplate.innerHTML : this._getDefaultTemplate();
+  }
+
+  _getDefaultTemplate() {
+    return `
 <style>
 :host {
   display: block;
@@ -25,11 +31,11 @@ class CarouselIthreads extends HTMLElement {
 <button id="btnPrev">Previous</button>
 <button id="btnNext">Next</button>
 `;
-    const clone = template.content.cloneNode(true);
-    this.shadowRoot.appendChild(clone);
   }
 
   connectedCallback() {
+    this.shadowRoot.innerHTML = this._getTemplate();
+
     this.observer = new MutationObserver(this.onMutation);
     this.observer.observe(this, {
       childList: true
@@ -40,8 +46,15 @@ class CarouselIthreads extends HTMLElement {
       total: 0,
     };
 
-    this.shadowRoot.getElementById("btnPrev").addEventListener("click", this.previous.bind(this));
-    this.shadowRoot.getElementById("btnNext").addEventListener("click", this.next.bind(this));
+    const elPrev = this.shadowRoot.getElementById("btnPrev");
+    if (elPrev) {
+      elPrev.addEventListener("click", this.previous.bind(this));
+    }
+
+    const elNext = this.shadowRoot.getElementById("btnNext");
+    if (elNext) {
+      elNext.addEventListener("click", this.next.bind(this));
+    }
   }
 
   disconnectedCallback() {
