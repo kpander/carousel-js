@@ -129,28 +129,89 @@ This example has 2 carousels on the same page.
     - That makes for a very boring (and empty) carousel...
 
 
+## Example 3: Reacting when the carousel changes state
+
+How do I do something whenever a carousel changes?
+
+Create a Mutation Observer and attach it to the carousel.
+
+```html
+<!doctype html>
+<html>
+<head>
+  <script src="src/Carousel.js"></script>
+</head>
+<body>
+  <carousel-ithreads>
+    <p>I'm the first item</p>
+    <p>I'm the second item</p>
+    <p>I'm the third item</p>
+  </carousel-ithreads>
+
+  <script>
+    // Setup a Mutation Observer
+    const el = document.querySelector("carousel-ithreads");
+    const observer = new MutationObserver(function(changedItems) {
+      console.log("carousel changed. new state:", el.state);
+    });
+    const observerConfig = { attributes: true, childList: true, subtree: true };
+    observer.observe(el, observerConfig);
+  </script>
+
+</body>
+</html>
+```
+
+Each time you click a carousel button, the console will output the new carousel state.
+
+This lets you 'subscribe' to carousel component changes.
+
+
 # API
 
-## `<int> (element).previous()`
+## Methods
+
+### `<int> (element).previous()`
 
 ```js
 const el = document.querySelector("carousel-ithreads");
 el.previous();
 ```
 
-## `<int> (element).next()`
+### `<int> (element).next()`
 
 ```js
 const el = document.querySelector("carousel-ithreads");
 el.next();
 ```
 
-## `<int> (element).activate(<int> index)`
+### `<int> (element).activate(<int> index)`
 
 ```js
 const el = document.querySelector("carousel-ithreads");
 el.activate(2);
 ```
+
+## Properties
+
+### `state`
+
+Returns the current state object for the carousel. The state object will look something like this:
+
+```js
+const el = document.querySelector("carousel-threads");
+console.log(el.state);
+```
+
+```
+{
+  current: 4,
+  total: 9
+}
+```
+
+  - `current` indicates which carousel item is currently visible
+  - `total` indicates the total number of items in the carousel
 
 
 # Developers

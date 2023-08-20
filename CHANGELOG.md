@@ -1,5 +1,8 @@
 # carousel-js Changelog
 
+  - v2.1.1 (2023-08-20)
+    - Maintenance: Updates README to include how to detect state changes, and documents the `.state` property
+
   - v2.1.0 (2023-08-16)
     - Feature: Adds `template-id` attribute on the main carousel element, which allows specifying a custom HTML template to use for the carousel
 
