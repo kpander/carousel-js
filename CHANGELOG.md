@@ -1,5 +1,8 @@
 # carousel-js Changelog
 
+  - v2.2.0 (2023-09-16)
+    - Feature: Adds attributes `label-prev`, `label-next`, `aria-prev`, `aria-next` to allow customizing the text and aria-labels of the previous/next buttons
+
   - v2.1.1 (2023-08-20)
     - Maintenance: Updates README to include how to detect state changes, and documents the `.state` property
 
