@@ -167,6 +167,44 @@ Each time you click a carousel button, the console will output the new carousel 
 This lets you 'subscribe' to carousel component changes.
 
 
+## Example 4: Custom button labels and ARIA labels
+
+How do I specify the button text (visible, or for screen readers)?
+
+Use any of the custom attributes `label-prev`, `label-next`, `aria-prev` or `aria-next`.
+
+
+```html
+<!doctype html>
+<html>
+<head>
+  <script src="src/Carousel.js"></script>
+</head>
+<body>
+  <carousel-ithreads
+    label-prev="Custom previous label"
+    label-next="Custom next label"
+    aria-prev="Screenreader previous label"
+    aria-next="Screenreader next label">
+    <p>I'm the first item</p>
+    <p>I'm the second item</p>
+    <p>I'm the third item</p>
+  </carousel-ithreads>
+
+</body>
+</html>
+```
+
+This will result in 2 buttons with markup like this:
+
+```html
+  <button id="btnPrev" aria-label="Screenreader previous label">Custom previous label</button>
+  <button id="btnNext" aria-label="Screenreader next label">Custom next label</button>
+```
+
+__Important: It should be a rare case where you need to specify buth a label **and** the ARIA label. Please do NOT specify the `aria-*` properties unless you fully understand accessibility and have a very good reason for the ARIA label being different than the visible `<button>` label!__
+
+
 # API
 
 ## Methods
@@ -239,7 +277,7 @@ $ npm publish
 
   - Option to disable wrap for 'Next' on the last slide, 'Previous' on the first
   - Option to set the slide to display on init
-  - Option to set the text labels for the buttons
+  - Show pagination
   - Styling options
 
 

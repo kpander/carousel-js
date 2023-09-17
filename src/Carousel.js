@@ -55,10 +55,50 @@ class CarouselIthreads extends HTMLElement {
     if (elNext) {
       elNext.addEventListener("click", this.next.bind(this));
     }
+
+    [ "label-prev", "label-next", "aria-prev", "aria-next" ].forEach(name => {
+      this._updateAttribute(name, this.getAttribute(name));
+    });
   }
 
   disconnectedCallback() {
     this.observer.disconnect();
+  }
+
+  static get observedAttributes() {
+    return [
+      "label-prev",
+      "label-next",
+      "aria-prev",
+      "aria-next",
+    ];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return;
+
+    this._updateAttribute(name, newValue);
+  }
+
+  _updateAttribute(name, value) {
+    if (!value) return;
+
+    const ids = {
+      "label-prev": "btnPrev",
+      "label-next": "btnNext",
+      "aria-prev": "btnPrev",
+      "aria-next": "btnNext",
+    };
+
+    const id = ids[name];
+    const el = this.shadowRoot.getElementById(id);
+    if (!el) return;
+
+    if (name === "label-prev" || name === "label-next") {
+      el.textContent = value;
+    } else if (name === "aria-prev" || name === "aria-next") {
+      el.setAttribute("aria-label", value);
+    }
   }
 
   onMutation(mutations) {
