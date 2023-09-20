@@ -205,6 +205,87 @@ This will result in 2 buttons with markup like this:
 __Important: It should be a rare case where you need to specify buth a label **and** the ARIA label. Please do NOT specify the `aria-*` properties unless you fully understand accessibility and have a very good reason for the ARIA label being different than the visible `<button>` label!__
 
 
+## Example 5: Automatically add pagination indicators
+
+Add the custom attribute `pagination`.
+
+```html
+<!doctype html>
+<html>
+<head>
+  <script src="src/Carousel.js"></script>
+</head>
+<body>
+  <carousel-ithreads pagination>
+    <p>I'm the first item</p>
+    <p>I'm the second item</p>
+    <p>I'm the third item</p>
+  </carousel-ithreads>
+
+</body>
+</html>
+```
+
+When this attribute exists on the `<carousel-ithreads>` element, the component will automatically add pagination indicators to the carousel. There will be one button for each item in the carousel. The pagination buttons will be inserted between the "previous" and "next" buttons.
+
+
+# CSS Styling
+
+The component exposes its internal parts by using the `part` attribute in the Shadow DOM.
+
+For example, the Shadow DOM HTML for a simple 3-item carousel using pagination will look like this:
+
+```html
+<carousel-ithreads pagination>
+  <div part="container-slot">
+    <p>I am item 1</p>
+    <p hidden="hidden">I am item 2</p>
+    <p hidden="hidden">I am item 2</p>
+  </div>
+  <div part="container-grid">
+    <button id="btnPrev" part="button previous">Previous</button>
+    <button id="btnNext" part="button next">Next</button>
+    <ul id="pagination" part="container-pagination">
+      <li part="pagination-item active">
+        <button data-item="0" aria-label="Go to item 1 of 3" part="pagination-button active">1</button>
+      </li>
+      <li part="pagination-item">
+        <button data-item="1" aria-label="Go to item 2 of 3" part="pagination-button">2</button>
+      </li>
+      <li part="pagination-item">
+        <button data-item="2" aria-label="Go to item 3 of 3" part="pagination-button">3</button>
+      </li>
+    </ul>
+  </div>
+</carousel-ithreads>
+```
+
+You can style these using the `::part` pseudo-element in CSS. For example:
+
+```css
+carousel-ithreads::part(button) {
+  background: blue;
+}
+carousel-ithreads::part(pagination-button) {
+  background: gray;
+  color: white;
+}
+carousel-ithreads::part(pagination-button active) {
+  background: green;
+  color: white;
+}
+```
+
+The full list of exposed `::part` items that can be styled is:
+
+  - `container-slot`
+  - `container-grid`
+  - `button`, `button previous`, `button next`
+  - `container-pagination`
+  - `pagination-item`, `pagination-item active`
+  - `pagination-button`, `pagination-button active`
+
+
 # API
 
 ## Methods
