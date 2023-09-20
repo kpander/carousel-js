@@ -1,5 +1,9 @@
 # carousel-js Changelog
 
+  - v2.3.0 (2023-09-20)
+    - Feature: Adds new attribute `pagination` that, if present, will add interactive pagination buttons to the carousel
+    - Feature: Exposes shadow DOM elements for CSS styling via custom `::part` names
+
   - v2.2.0 (2023-09-16)
     - Feature: Adds attributes `label-prev`, `label-next`, `aria-prev`, `aria-next` to allow customizing the text and aria-labels of the previous/next buttons
 
