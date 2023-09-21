@@ -232,6 +232,9 @@ ${styles}
 
     if (this.hasAttribute("pagination")) {
       this._addPagination();
+    } else {
+      const el = this.shadowRoot.getElementById("pagination");
+      if (el) el.remove();
     }
 
     this.activate(this.state.current);

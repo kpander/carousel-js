@@ -1,5 +1,8 @@
 # carousel-js Changelog
 
+  - v2.3.1 (2023-09-20)
+    - Bugfix: Navigation elements are now properly centered when pagination is disabled
+
   - v2.3.0 (2023-09-20)
     - Feature: Adds new attribute `pagination` that, if present, will add interactive pagination buttons to the carousel
     - Feature: Exposes shadow DOM elements for CSS styling via custom `::part` names
