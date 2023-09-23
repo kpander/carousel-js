@@ -1,5 +1,13 @@
 # carousel-js Changelog
 
+  - v3.0.0 (2023-09-22)
+    - Breaking change: element name changed to `<it-carousel>`
+    - Breaking change: Carousel HTML structure and available `::part` attributes have changed
+    - Feature: adds `initial-slide` attribute to allow specifying the initial slide to show
+    - Feature: adds `pagination-label` attribute to allow customizing the pagination label
+    - Feature: adds `pagination-values` attribute to allow specification of specific pagination labels for each slide
+    - Maintenance: adds example HTML page to demonstrate how to use the carousel's features
+
   - v2.3.1 (2023-09-20)
     - Bugfix: Navigation elements are now properly centered when pagination is disabled
 

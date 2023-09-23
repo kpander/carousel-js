@@ -1,6 +1,6 @@
 # carousel-js
 
-Simple vanilla js carousel web component, for displaying different cards in a group.
+Simple vanilla js carousel web component, for displaying different cards in a group. Includes options for pagination and custom styling.
 
 
 # Installation
@@ -28,205 +28,65 @@ $ cp "node_modules/@kpander/carousel-js/dist/Carousel.js" ./src/js
 
 # Usage
 
-## Example 1: Basic usage
+The quick-start example is:
 
 ```html
-<carousel-ithreads>
-
-  <div>
-    <p>I am the first item</p>
-  </div>
-
-  <div>
-    <ul>
-      <li>I am the second carousel item</li>
-      <li>I am the second carousel item</li>
-    </ul>
-  </div>
-
-  <div>
-    <img src="https://placekitten.com/640/480">
-    <p>I am the third item, a photo</p>
-  </div>
-
-</carousel-ithreads>
+<it-carousel pagination>
+  <img src="img1.jpg">
+  <img src="img2.jpg">
+  <img src="img3.jpg">
+</it-carousel>
 ```
 
-In the example above:
-
-  - Each top-level item within the `<carousel-ithreads>` container will be considered a 'slide' in the carousel
-  - A button will be created for both a 'Previous' and 'Next' button to control the carousel
-
-In this example above, there are 3 slides.
+See the <a href="https://kpander.github.io/carousel-js/index.html">Examples page</a>.
 
 
-## Example 2: Providing a custom HTML template
+## Attributes
 
-Don't like the positioning of the buttons? Want to change the markup? You can provide something completely custom.
+| Attribute             | Default value   | Description |
+| :- | :- | :- |
+| `label-prev`          | `"Previous"`    | The label for the 'previous' button. |
+| `label-next`          | `"Next"`        | The label for the 'next' button. |
+| `aria-prev`           | `"Go to previous item"` | The ARIA label for the 'previous' button. |
+| `aria-next`           | `"Go to next item"` | The ARIA label for the 'next' button. |
+| `initial-slide`       | `"1"`           | The index of the slide to display when the carousel is initialized. "1" = the first slide. If the given valid is invalid, the first slide will be displayed first. |
+| `pagination`          | `null`          | If this attribute exists, pagination indicators will be added to the carousel. |
+| `pagination-label`    | `"{{ index }}"` | String template for each pagination button. Will replace any instance of `"{{ index }}"` with the current slide number. |
+| `pagination-values`   | `null`          | Tilde-delimited list of values to use for the pagination buttons. E.g., "First~Second~Third". If not provided, the `pagination-template` label will be used. |
+| `template-id`         | `null`          | If this attribute exists, the carousel will use the HTML markup from the element with the `id` specified by this attribute. |
 
-Use the attribute `template-id` on the `<carousel-ithreads>` element. The value should be the `id` of another DOM element. The `innerHTML` of that element will be used as the HTML of the carousel.
+**The only attributes that are dynamic are:**
 
-This example has 2 carousels on the same page.
+  - `label-prev`
+  - `label-next`
+  - `aria-prev`
+  - `aria-next`
 
-  - The first one uses a custom template for markup
-  - The second one uses the default markup
+If you change them after the carousel has been initialized, the carousel will update the button labels.
+
+
+### Almost everything at once (without a custom `template-id`)
+
+What does that look like in practice?
 
 ```html
-<!doctype html>
-<html>
-<head>
-  <script src="Carousel.js"></script>
-</head>
-<body>
-
-  <template id="my-custom-template">
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <p>Something before the custom carousel</p>
-    <button id="btnPrev">Previous BUTTON Is Here</button>
-    <div id="container">
-      <slot></slot>
-    </div>
-    <button id="btnNext">Next BUTTON Is Here</button>
-    <p>Something after the custom carousel</p>
-  </template>
-
-  <h2>Carousel with custom template markup</h2>
-  <carousel-ithreads template-id="my-custom-template">
-    <div data-slide>
-      <p>Custom Carousel: I am the first item</p>
-    </div>
-    <div data-slide>
-      <p>Custom Carousel: I am the second item</p>
-    </div>
-  </carousel-ithreads>
-
-  <hr>
-
-  <h2>Default carousel</h2>
-  <carousel-ithreads>
-    <div data-slide>
-      <p>Default Carousel: I am the first item</p>
-    </div>
-    <div data-slide>
-      <p>Default Carousel: I am the second item</p>
-    </div>
-  </carousel-ithreads>
-
-</body>
-</html>
+<it-carousel
+  label-prev="Go back"
+  label-next="Go forward"
+  aria-prev="Screenreader go back"
+  aria-next="Screenreader go back"
+  initial-slide="2"
+  pagination
+  pagination-label="Show item {{ index }}"
+  pagination-values="Car~Dog~Fish~Banana"
+  >
+  <img src="car.jpg">
+  <img src="dog.jpg">
+  <img src="fish.jpg">
+  <img src="banana.jpg">
+  <img src="unknown.jpg">
+</it-carousel>
 ```
-
-**Notes:**
-
-  - The `(element).previous()` method will be attached to any item with `id="btnPrev"`
-  - The `(element).next()` method will be attached to any item with `id="btnNext"`
-  - The `<carousel-ithreads>` children will be inserted into the `<slot></slot>` element
-    - If you don't provide the `<slot></slot>` element, no children will be inserted into the carousel
-    - That makes for a very boring (and empty) carousel...
-
-
-## Example 3: Reacting when the carousel changes state
-
-How do I do something whenever a carousel changes?
-
-Create a Mutation Observer and attach it to the carousel.
-
-```html
-<!doctype html>
-<html>
-<head>
-  <script src="src/Carousel.js"></script>
-</head>
-<body>
-  <carousel-ithreads>
-    <p>I'm the first item</p>
-    <p>I'm the second item</p>
-    <p>I'm the third item</p>
-  </carousel-ithreads>
-
-  <script>
-    // Setup a Mutation Observer
-    const el = document.querySelector("carousel-ithreads");
-    const observer = new MutationObserver(function(changedItems) {
-      console.log("carousel changed. new state:", el.state);
-    });
-    const observerConfig = { attributes: true, childList: true, subtree: true };
-    observer.observe(el, observerConfig);
-  </script>
-
-</body>
-</html>
-```
-
-Each time you click a carousel button, the console will output the new carousel state.
-
-This lets you 'subscribe' to carousel component changes.
-
-
-## Example 4: Custom button labels and ARIA labels
-
-How do I specify the button text (visible, or for screen readers)?
-
-Use any of the custom attributes `label-prev`, `label-next`, `aria-prev` or `aria-next`.
-
-
-```html
-<!doctype html>
-<html>
-<head>
-  <script src="src/Carousel.js"></script>
-</head>
-<body>
-  <carousel-ithreads
-    label-prev="Custom previous label"
-    label-next="Custom next label"
-    aria-prev="Screenreader previous label"
-    aria-next="Screenreader next label">
-    <p>I'm the first item</p>
-    <p>I'm the second item</p>
-    <p>I'm the third item</p>
-  </carousel-ithreads>
-
-</body>
-</html>
-```
-
-This will result in 2 buttons with markup like this:
-
-```html
-  <button id="btnPrev" aria-label="Screenreader previous label">Custom previous label</button>
-  <button id="btnNext" aria-label="Screenreader next label">Custom next label</button>
-```
-
-__Important: It should be a rare case where you need to specify buth a label **and** the ARIA label. Please do NOT specify the `aria-*` properties unless you fully understand accessibility and have a very good reason for the ARIA label being different than the visible `<button>` label!__
-
-
-## Example 5: Automatically add pagination indicators
-
-Add the custom attribute `pagination`.
-
-```html
-<!doctype html>
-<html>
-<head>
-  <script src="src/Carousel.js"></script>
-</head>
-<body>
-  <carousel-ithreads pagination>
-    <p>I'm the first item</p>
-    <p>I'm the second item</p>
-    <p>I'm the third item</p>
-  </carousel-ithreads>
-
-</body>
-</html>
-```
-
-When this attribute exists on the `<carousel-ithreads>` element, the component will automatically add pagination indicators to the carousel. There will be one button for each item in the carousel. The pagination buttons will be inserted between the "previous" and "next" buttons.
 
 
 # CSS Styling
@@ -236,18 +96,18 @@ The component exposes its internal parts by using the `part` attribute in the Sh
 For example, the Shadow DOM HTML for a simple 3-item carousel using pagination will look like this:
 
 ```html
-<carousel-ithreads pagination>
-  <div part="container-slot">
-    <p>I am item 1</p>
-    <p hidden="hidden">I am item 2</p>
-    <p hidden="hidden">I am item 2</p>
-  </div>
-  <div part="container-grid">
-    <button id="btnPrev" part="button previous">Previous</button>
-    <button id="btnNext" part="button next">Next</button>
-    <ul id="pagination" part="container-pagination">
+<it-carousel pagination>
+  <div part="container">
+    <div part="slot">
+      <p>I am item 1</p>
+      <p hidden="hidden">I am item 2</p>
+      <p hidden="hidden">I am item 2</p>
+    </div>
+    <button part="button previous" id="btnPrev">Previous</button>
+    <button part="button next" id="btnNext">Next</button>
+    <ul part="pagination" id="pagination">
       <li part="pagination-item active">
-        <button data-item="0" aria-label="Go to item 1 of 3" part="pagination-button active">1</button>
+        <button data-item="0" aria-label="Go to item 1 of 3" aria-disabled="true" part="pagination-button active">1</button>
       </li>
       <li part="pagination-item">
         <button data-item="1" aria-label="Go to item 2 of 3" part="pagination-button">2</button>
@@ -257,20 +117,20 @@ For example, the Shadow DOM HTML for a simple 3-item carousel using pagination w
       </li>
     </ul>
   </div>
-</carousel-ithreads>
+</it-carousel>
 ```
 
 You can style these using the `::part` pseudo-element in CSS. For example:
 
 ```css
-carousel-ithreads::part(button) {
+it-carousel::part(button) {
   background: blue;
 }
-carousel-ithreads::part(pagination-button) {
+it-carousel::part(pagination-button) {
   background: gray;
   color: white;
 }
-carousel-ithreads::part(pagination-button active) {
+it-carousel::part(pagination-button active) {
   background: green;
   color: white;
 }
@@ -278,8 +138,8 @@ carousel-ithreads::part(pagination-button active) {
 
 The full list of exposed `::part` items that can be styled is:
 
-  - `container-slot`
-  - `container-grid`
+  - `container`
+  - `slot`
   - `button`, `button previous`, `button next`
   - `container-pagination`
   - `pagination-item`, `pagination-item active`
@@ -293,23 +153,25 @@ The full list of exposed `::part` items that can be styled is:
 ### `<int> (element).previous()`
 
 ```js
-const el = document.querySelector("carousel-ithreads");
+const el = document.querySelector("it-carousel");
 el.previous();
 ```
 
 ### `<int> (element).next()`
 
 ```js
-const el = document.querySelector("carousel-ithreads");
+const el = document.querySelector("it-carousel");
 el.next();
 ```
 
 ### `<int> (element).activate(<int> index)`
 
 ```js
-const el = document.querySelector("carousel-ithreads");
+const el = document.querySelector("it-carousel");
 el.activate(2);
 ```
+
+The first slide is index "0".
 
 ## Properties
 
@@ -357,9 +219,8 @@ $ npm publish
 # TODO
 
   - Option to disable wrap for 'Next' on the last slide, 'Previous' on the first
-  - Option to set the slide to display on init
-  - Show pagination
-  - Styling options
+  - Front-end tests (cypress?)
+  - Proper accessible implementation
 
 
 # Maintainer
