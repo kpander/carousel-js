@@ -22,13 +22,11 @@ class CarouselIthreads extends HTMLElement {
     const styles = this._getDefaultStyles();
     return `
 ${styles}
-<div part="container-slot">
-  <slot></slot>
-</div>
-<div part="container-grid">
-  <button id="btnPrev" part="button previous">Previous</button>
-  <button id="btnNext" part="button next">Next</button>
-  <ul id="pagination" part="container-pagination"></ul>
+<div part="container">
+  <div part="slot"><slot></slot></div>
+  <button part="button previous" id="btnPrev">Previous</button>
+  <button part="button next" id="btnNext">Next</button>
+  <ul part="pagination" id="pagination"></ul>
 </div>
 `;
   }
@@ -41,21 +39,30 @@ ${styles}
   display: block;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* Organize the nav buttons and pagination in a grid. */
-[part="container-grid"] {
+[part="container"] {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
   gap: 0px .5em;
   grid-template-areas:
+    "slot slot"
     "prev next";
 }
 
 /* If we're showing pagination, insert them into the grid. */
-:host([pagination]) [part="container-grid"] {
+:host([pagination]) [part="container"] {
   grid-template-columns: 1fr max-content 1fr;
   grid-template-areas:
+    "slot slot slot"
     "prev pagination next";
+}
+
+[part="slot"] {
+  grid-area: slot;
 }
 
 [part="button previous"] {
@@ -68,7 +75,7 @@ ${styles}
   grid-area: next; 
 }
 
-[part="container-pagination"] {
+[part="pagination"] {
   justify-self: center;
   align-self: center;
   grid-area: pagination;
@@ -78,7 +85,7 @@ ${styles}
   width: 8em;
 }
 
-[part="container-pagination"] {
+[part="pagination"] {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -117,9 +124,21 @@ ${styles}
     });
 
     this.state = {
-      current: 0,
+      current: this._getInitialIndex(),
       total: 0,
     };
+
+    if (this.hasAttribute("pagination-label")) {
+      this.paginationLabel = this.getAttribute("pagination-label");
+    } else {
+      this.paginationLabel = "{{ index }}";
+    }
+
+    if (this.hasAttribute("pagination-values")) {
+      this.paginationValues = this.getAttribute("pagination-values").split("~");
+    } else {
+      this.paginationValues = null;
+    }
 
     const elPrev = this.shadowRoot.getElementById("btnPrev");
     if (elPrev) {
@@ -134,6 +153,19 @@ ${styles}
     [ "label-prev", "label-next", "aria-prev", "aria-next" ].forEach(name => {
       this._updateAttribute(name, this.getAttribute(name));
     });
+  }
+
+  /**
+   * Determine which slide should be shown upon initial load.
+   */
+  _getInitialIndex() {
+    if (!this.hasAttribute("initial-slide")) return 0;
+
+    let index = parseInt(this.getAttribute("initial-slide"), 10);
+    if (isNaN(index)) return 0;
+
+    index--;
+    return Math.max(0, index);
   }
 
   disconnectedCallback() {
@@ -176,19 +208,24 @@ ${styles}
     }
   }
 
+  /**
+   * Add the pagination navigation buttons.
+   */
   _addPagination() {
     const el = this.shadowRoot.getElementById("pagination");
     if (!el) return;
 
     for (let i = 0; i < this.state.total; i++) {
+      // Create the <li> element.
       const li = document.createElement("li");
       li.setAttribute("part", "pagination-item");
 
+      // Create the <button> element.
       const button = document.createElement("button");
-      button.setAttribute("data-item", i);
-      button.setAttribute("aria-label", "Go to item " + (i + 1) + " of " + this.state.total);
       button.setAttribute("part", "pagination-button");
-      button.textContent = "" + (i + 1);
+      button.setAttribute("data-item", i);
+      button.setAttribute("aria-label", this._getPaginationAriaLabel(i));
+      button.textContent = this._getPaginationLabel(i);
       button.addEventListener("click", this._goto.bind(this));
 
       li.appendChild(button);
@@ -196,20 +233,44 @@ ${styles}
     }
   }
 
-  _updatePagination(newIndex) {
-    const elPagination = this.shadowRoot.getElementById("pagination");
-    if (elPagination) {
-      elPagination.querySelectorAll("li").forEach((elItem, index) => {
-        const elButton = elItem.querySelector("button");
-        if (index === newIndex) {
-          elItem.setAttribute("part", "pagination-item active");
-          elButton.setAttribute("part", "pagination-button active");
-        } else {
-          elItem.setAttribute("part", "pagination-item");
-          elButton.setAttribute("part", "pagination-button");
-        }
-      });
+  /**
+   * Get the visible pagination button label, for a specific slide.
+   */
+  _getPaginationLabel(index) {
+    if (this.paginationValues && this.paginationValues[index]) {
+      return this.paginationValues[index];
+    } else {
+      return this.paginationLabel.replace("{{ index }}", (index + 1));
     }
+  }
+
+  /**
+   * Get the screenreader pagination button label, for a specific slide.
+   */
+  _getPaginationAriaLabel(index) {
+    return "Go to item " + (index + 1) + " of " + this.state.total;
+  }
+
+  /**
+   * Update the pagination buttons to indicate which one is active.
+   */
+  _updatePagination(newIndex) {
+    const el= this.shadowRoot.getElementById("pagination");
+    if (!el) return;
+
+    el.querySelectorAll("li").forEach((elItem, index) => {
+      const elButton = elItem.querySelector("button");
+      if (index === newIndex) {
+        // This is the active item.
+        elItem.setAttribute("part", "pagination-item active");
+        elButton.setAttribute("part", "pagination-button active");
+        elButton.setAttribute("aria-disabled", true);
+      } else {
+        elItem.setAttribute("part", "pagination-item");
+        elButton.setAttribute("part", "pagination-button");
+        elButton.removeAttribute("aria-disabled");
+      }
+    });
   }
 
   onMutation(mutations) {
@@ -288,4 +349,4 @@ ${styles}
   }
 
 }
-customElements.define('carousel-ithreads', CarouselIthreads);
+customElements.define('it-carousel', CarouselIthreads);
