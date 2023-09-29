@@ -6,19 +6,20 @@ const { test, expect } = require('@playwright/test');
  * https://github.com/microsoft/playwright/issues/16270
  */
 expect.extend({
-  async hasAttribute(recieved, attribute) {
-    const pass = await recieved.evaluate(
+  async hasAttribute(received, attribute) {
+    const pass = await received.evaluate(
       (node, attribute) => node.hasAttribute(attribute),
       attribute
     );
 
     return {
-      message: () => `expected ${recieved} to have attribute \`${attribute}\``,
+      message: () => `expected ${received} to have attribute \`${attribute}\``,
       pass,
     };
   },
 });
 
+// -----------------------------------
 
 test.describe("Example 1a: Basic Carousel", () => {
 

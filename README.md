@@ -215,11 +215,32 @@ $ npm run build
 $ npm publish
 ```
 
+## Tests
+
+You may need to perform a one-time installation of browsers for automated testing.
+
+```bash
+$ npx playwright install
+```
+
+To run the existing tests:
+
+```bash
+$ npm run test
+```
+
+To run the tests and see the test UI:
+
+```bash
+$ npm run test:ui
+```
+
+All tests are saved in the `/tests/` folder. They're written for the Playwright test framework. See the <a href="https://playwright.dev/docs/intro">Playwright documentation</a> for more information.
+
 
 # TODO
 
   - Option to disable wrap for 'Next' on the last slide, 'Previous' on the first
-  - Front-end tests (cypress?)
   - Proper accessible implementation
 
 

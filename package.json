@@ -1,6 +1,6 @@
 {
   "name": "@kpander/carousel-js",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Simple vanilla JS carousel web component for displaying different cards in a group",
   "homepage": "https://github.com/kpander/carousel-js",
   "author": {
@@ -14,7 +14,9 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui"
   },
   "repository": {
     "type": "git",
