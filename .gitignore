@@ -138,4 +138,6 @@ out
 .DS_Store
 thumbs.db
 Thumbs.db
-
+/test-results/
+/playwright-report/
+/playwright/.cache/

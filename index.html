@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Carousel Web Component Examples</title>
+    <script src="src/Carousel.js?v=0033"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script 
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"
+      onload="hljs.highlightAll();"
+    ></script>
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+header,
+footer {
+  background: #333;
+  color: white;
+  padding: 2em;
+}
+header a,
+footer a {
+  color: #9cf;
+}
+
+header {
+  margin-bottom: 1em;
+}
+footer {
+  margin-top: 2em;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  margin: 1em auto;
+}
+code {
+  background: #eee;
+  font-family: monospace;
+  padding: .1em .3em;
+  border-radius: .3em;
+}
+img {
+  max-width: 100%;
+}
+h2 {
+  margin-top: 2em;
+  border-bottom: 1px solid #ccc;
+}
+
+details {
+  margin-top: 1em;
+  padding: .25em;
+  border: 1px solid #ccc;
+}
+
+summary {
+  background: #eee;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 85%;
+  padding: .25em 0;
+  color: blue;
+}
+
+details code,
+details pre {
+  padding: .5em 0;
+  margin: 0;
+}
+
+/* Force all carousels to be the same width and centered on the page. */
+it-carousel {
+  display: block;
+  margin: 0 auto;
+  max-width: 550px;
+  width: 100%;
+}
+</style>
+  <link rel="icon" href="data:,">
+  </head>
+  <body>
+    <header>
+      <h1>Carousel Web Component Examples</h1>
+      <p class="github">See the <a href="https://github.com/kpander/carousel-js">Github source</a>.</p>
+    </header>
+
+    <main class="container">
+
+    <h2>Example 1a: Basic Carousel</h2>
+
+    <p>Each child element inside the <code>&lt;it-carousel&gt;</code> element will be treated as a slide.</p>
+
+    <it-carousel id="example1a">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+    <h2>Example 1b: Initial slide to display</h2>
+
+    <p>By default, the first element in the carousel is shown first. You can change this by setting the <code>initial-slide</code> attribute to the index of the slide you want to show first. A value of "1" is the first slide in the carousel.</p>
+
+    <p>In this example, show the 3rd item at first.</p>
+
+    <it-carousel initial-slide="3" id="example1b">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  initial-slide="3"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+
+    <h2>Example 2: Custom button labels</h2>
+
+    <it-carousel id="example2"
+        label-prev="« Go back"
+        label-next="Go forward »">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel 
+  label-prev="« Go back" 
+  label-next="Go forward »"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+
+    <h2>Example 3: Custom button labels for screenreaders (ARIA labels)</h2>
+
+    <p>(You'll only be able to see this by inspecting the live source code, or hear it by using a screen reader.)</p>
+
+    <it-carousel id="example3"
+        aria-prev="Back message for screenreader users only"
+        aria-next="Next message for screenreader users only">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel 
+  aria-prev="Back message for screenreader users only" 
+  aria-next="Next message for screenreader users only"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+    <p>Important: It should be a rare case where you need to specify both a label **and** the ARIA label. Do NOT specify the <code>aria-*</code> properties unless you fully understand accessibility and have a very good reason for the ARIA label being different than the visible <code>&lt;button&gt;</code> label!</p>
+
+
+    <h2>Example 4a: Pagination</h2>
+
+    <p>Add the <code>pagination</code> attribute to the &lt;it-carousel&gt; element to enable pagination.</p>
+
+    <it-carousel pagination id="example4a">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  pagination&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+
+    <h2>Example 4b: Remove labels from pagination buttons</h2>
+
+    <p>Set the <code>pagination-label</code> attribute to an empty string to remove the labels inside the pagination buttons.</p>
+
+    <p>We'll also provide some custom styling so the buttons still appear.</p>
+
+<style>
+#example4b::part(pagination-button) {
+  height: 1.5em;
+  width: 1.5em;
+}
+</style>
+
+    <it-carousel pagination pagination-label="" id="example4b">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  pagination
+  pagination-label=""&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+
+
+    <h2>Example 4c: Use custom labels inside pagination buttons</h2>
+
+    <p>Use the <code>pagination-label</code> attribute to provide a string for the labels inside the pagination buttons. Any instance of <code>{{ index }}</code> will be replaced with the current slide number.</p>
+    <p>E.g., On the second slide, <code>"Item {{ index }}"</code> would be changed to <code>"Item 2"</code>.</p>
+
+<style>
+#example4c::part(button) {
+  width: 4.75em;
+}
+</style>
+
+    <it-carousel pagination pagination-label="Item {{ index }}" id="example4c">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  pagination
+  pagination-label="Item {{ index }}"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+
+    <h2>Example 4d: Provide a unique label for each pagination button</h2>
+
+    <p>Use the <code>pagination-values</code> attribute to provide a string for each pagination button. This is a tilde-delimited list. If there are fewer values than slides, the label will use the default.</p>
+
+<style>
+#example4d::part(button) {
+  width: 2em;
+}
+</style>
+
+    <it-carousel pagination pagination-values="Island~Pipes~Tractor" label-prev="«" label-next="»" id="example4d">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  pagination
+  pagination-values="Island~Pipes~Tractor"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+    </details>
+
+
+
+    <h2>Example 5a: Custom CSS styling</h2>
+
+    <p>Use the <code>part</code> attribute to target specific elements inside the carousel.</p>
+    <p>By default, the following parts are available for styling:</p>
+
+    <ul>
+      <li><code>container</code>
+      <li><code>slot</code>
+      <li><code>button</code>, <code>button previous</code>, <code>button next</code>
+      <li><code>container-pagination</code>
+      <li><code>pagination-item</code>, <code>pagination-item active</code>
+      <li><code>pagination-button</code>, <code>pagination-button active</code>
+    </ul>
+
+<style>
+#example5a::part(button) {
+  border: 5px solid blue;
+  border-radius: 1em;
+}
+#example5a::part(button previous) {
+  background: yellow;
+}
+#example5a::part(button next) {
+  background: lightblue;
+}
+#example5a::part(pagination) {
+  background: #ccc;
+  padding: .5em;
+}
+#example5a::part(pagination-button active) {
+  background: red;
+  color: white;
+  font-weight: bold;
+}
+</style>
+
+    <it-carousel pagination id="example5a">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  id="example5a"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+
+      <pre><code class="language-css">#example5a::part(button) {
+  border: 5px solid blue;
+  border-radius: 1em;
+}
+#example5a::part(button previous) {
+  background: yellow;
+}
+#example5a::part(button next) {
+  background: lightblue;
+}
+#example5a::part(container-pagination) {
+  background: #ccc;
+  padding: .5em;
+}
+#example5a::part(pagination-button active) {
+  background: red;
+  color: white;
+  font-weight: bold;
+} </code></pre>
+    </details>
+
+
+
+    <h2>Example 6: Custom HTML template</h2>
+
+    <p>Maybe you need to make other changes to the default structure of a carousel that can't be accomodated with CSS styling alone. For that, you can provide your own HTML template. It might be overkill, and you'll need to ensure certain elements are present, but it gives you full control.</p>
+
+    <p>The <code>(element).previous()</code> method will be attached to an element with <code>id="btnPrev"</code>.</p>
+    <p>The <code>(element).next()</code> method will be attached to an element with <code>id="btnNext"</code>.</p>
+    <p>If you don't provide the <code>&lt;slot&gt;&lt;/slot&gt;</code> element, the carousel will not have any slides.</p>
+
+    <p>You'll be in charge of what can be styled by adding <code>part</code> attributes.</p>
+
+<style>
+#example6::part(container) {
+  position: relative;
+}
+#example6::part(buttons) {
+  position: absolute;
+  width: 100%;
+  top: 42%;
+  transform: translateY(-50%);
+}
+#example6::part(button previous) {
+  position: absolute;
+  left: -1rem;
+}
+#example6::part(button next) {
+  position: absolute;
+  right: -1rem;
+}
+#example6::part(button) {
+  font-size: 3rem;
+  font-weight: bold;
+  border: 0;
+  border-radius: 2rem;
+  height: 4rem;
+  width: 4rem;
+  color: white;
+  background: blue;
+  padding: 0 0 1rem;
+  line-height: 3.5rem;
+  box-shadow: 0 5px 5px rgba(255,255,255,0.5);
+}
+#example6::part(button):hover {
+  cursor: pointer;
+}
+#example6::part(pagination) {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#example6::part(pagination-item) {
+  display: inline-block;
+}
+#example6::part(pagination-button) {
+  border-radius: .75em;
+  border: 1px solid #ccc;
+  margin: 0 .1em;
+}
+#example6::part(pagination-button) {
+  background: ButtonFace;
+  color: inherit;
+}
+#example6::part(pagination-button active) {
+  background: black;
+  color: white;
+}
+
+</style>
+
+<template id="example-6-custom-template">
+  <div part="container">
+    <div part="buttons">
+      <button id="btnPrev" part="button previous">«</button>
+      <button id="btnNext" part="button next">»</button>
+    </div>
+    <div part="slot"><slot></slot></div>
+  </div>
+  <ul id="pagination" part="pagination"></ul>
+</template>
+
+    <it-carousel template-id="example-6-custom-template" pagination id="example6">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;template id="example-6-custom-template"&gt;
+  &lt;div part="container"&gt;
+    &lt;div part="buttons"&gt;
+      &lt;button id="btnPrev" part="button previous"&gt;&Acirc;&laquo;&lt;/button&gt;
+      &lt;button id="btnNext" part="button next"&gt;&Acirc;&raquo;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div part="slot"&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;ul id="pagination" part="pagination"&gt;&lt;/ul&gt;
+&lt;/template&gt;
+
+&lt;it-carousel
+  template-id="example-6-custom-template"
+  pagination
+  id="example6"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+
+      <pre><code class="language-css">#example6::part(container) {
+  position: relative;
+}
+#example6::part(buttons) {
+  position: absolute;
+  width: 100%;
+  top: 42%;
+  transform: translateY(-50%);
+}
+#example6::part(button previous) {
+  position: absolute;
+  left: -1rem;
+}
+#example6::part(button next) {
+  position: absolute;
+  right: -1rem;
+}
+#example6::part(button) {
+  font-size: 3rem;
+  font-weight: bold;
+  border: 0;
+  border-radius: 2rem;
+  height: 4rem;
+  width: 4rem;
+  color: white;
+  background: blue;
+  padding: 0 0 1rem;
+  line-height: 3.5rem;
+  box-shadow: 0 5px 5px rgba(255,255,255,0.5);
+}
+#example6::part(button):hover {
+  cursor: pointer;
+}
+#example6::part(pagination) {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#example6::part(pagination-item) {
+  display: inline-block;
+}
+#example6::part(pagination-button) {
+  border-radius: .75em;
+  border: 1px solid #ccc;
+  margin: 0 .1em;
+}
+#example6::part(pagination-button) {
+  background: ButtonFace;
+  color: inherit;
+}
+#example6::part(pagination-button active) {
+  background: black;
+  color: white;
+}</code></pre>
+    </details>
+
+
+
+    <h2>Example 7: Controlling the Carousel via Javascript</h2>
+
+    <p>Get the &lt;it-carousel&gt; element, and call its <code>next()</code> and <code>previous()</code> methods.</p>
+    <p>When called, these methods will also return a state object identifying the current slide index and total number of slides.</p>
+
+    <it-carousel id="example7a">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <button onclick="document.getElementById('example7a').previous()">JS Go back</button>
+    <br>
+    <button onclick="document.getElementById('example7a').next()">JS Go forward</button>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  id="example7a"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;
+
+&lt;button onclick="document.getElementById('example7a').previous()"&gt;JS Go back&lt;/button&gt;
+&lt;br&gt;
+&lt;button onclick="document.getElementById('example7a').next()"&gt;JS Go forward&lt;/button&gt;</code></pre>
+    </details>
+
+
+
+    <h2>Example 8: Detecting state changes with Javascript</h2>
+
+    <p>How do I do something whenever a carousel changes? Create a Mutation Observer and attach it to the carousel.</p>
+
+    <it-carousel id="example8">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+    <p>Carousel updated at timestamp: <span id="example8-timestamp" style="border:1px solid #ccc; padding: .25em;margin-left: .5em;"></span></p>
+
+    <script>
+// Setup a Mutation Observer
+const el = document.getElementById("example8");
+const observer = new MutationObserver(function(changedItems) {
+  const elTimestamp = document.getElementById("example8-timestamp");
+  elTimestamp.innerHTML = Date.now();
+});
+const observerConfig = { attributes: true, childList: true, subtree: true };
+observer.observe(el, observerConfig);
+    </script>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  id="example8"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;
+
+&lt;p&gt;Carousel updated at timestamp: 
+  &lt;span id="example8-timestamp" 
+  style="border:1px solid #ccc; padding: .25em;margin-left: .5em;"&gt;&lt;/span&gt;
+&lt;/p&gt;</code></pre>
+
+      <pre><code class="language-js">const el = document.getElementById("example8");
+const observer = new MutationObserver(function(changedItems) {
+  const elTimestamp = document.getElementById("example8-timestamp");
+  elTimestamp.innerHTML = Date.now();
+});
+const observerConfig = { attributes: true, childList: true, subtree: true };
+observer.observe(el, observerConfig);</code></pre>
+
+    </details>
+
+    </main>
+
+    <footer>
+      <p><strong>Carousel Web Component</strong></p>
+      <p class="github">See the <a href="https://github.com/kpander/carousel-js">Github source</a>.</p>
+    </footer>
+  </body>
+</html>
+

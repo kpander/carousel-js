@@ -1,5 +1,5 @@
 /* https://github.com/kpander/carousel-js */
-/* dist/Carousel.js v3.0.0 Sat Sep 23 2023 09:29:23 GMT-0400 (Eastern Daylight Saving Time) */
+/* dist/Carousel.js v3.0.1 Thu Sep 28 2023 22:35:23 GMT-0400 (Eastern Daylight Saving Time) */
 
 "use strict";class CarouselIthreads extends HTMLElement{constructor(){super(),this.attachShadow({mode:"open"}),this.onMutation=this.onMutation.bind(this)}_getTemplate(){var t=document.getElementById(this.getAttribute("template-id"));return t?t.innerHTML:this._getDefaultTemplate()}_getDefaultTemplate(){return`
 ${this._getDefaultStyles()}
