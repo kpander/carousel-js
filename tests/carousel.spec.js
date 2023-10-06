@@ -336,7 +336,18 @@ test.describe("Example 5a: Custom CSS styling", () => {
     await expect(await page.locator("#example5a #btnPrev")).toHaveCSS("background-color", "rgb(255, 255, 0)"); // yellow
     await expect(await page.locator("#example5a #btnNext")).toHaveCSS("background-color", "rgb(173, 216, 230)"); // lightblue
     await expect(await page.locator("#example5a #pagination")).toHaveCSS("background-color", "rgb(204, 204, 204)");
+  });
+});
 
+// -----------------------------------
+
+test.describe("Example 5b: No default CSS styling", () => {
+
+  test('We can remove default styles', async ({ page }) => {
+    await page.goto('/index.html');
+
+    await expect(await page.locator("#example5b #btnPrev")).not.toHaveCSS("justify-self", "end");
+    await expect(await page.locator("#example5b #btnNext")).not.toHaveCSS("justify-self", "start");
   });
 
 });
