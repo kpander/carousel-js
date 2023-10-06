@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Carousel Web Component Examples</title>
-    <script src="src/Carousel.js?v=0033"></script>
+    <script src="src/Carousel.js?v=0034"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
     <script 
@@ -370,6 +370,29 @@ it-carousel {
   font-weight: bold;
 } </code></pre>
     </details>
+
+
+    <h2>Example 5b: No default CSS styling</h2>
+
+    <p>Add the <code>unstyled</code> attribute to create a carousel with no default CSS styles.</p>
+
+    <it-carousel unstyled pagination id="example5b">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200507/24954-20050703.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200407/11242-20060326-brickworks-int-47.jpg?ts=1621541762988">
+      <img src="https://www.invisiblethreads.com/files/dyn/ph1024/200505/22820-20050508.jpg?ts=1621541762988">
+    </it-carousel>
+
+    <details>
+      <summary>Example source</summary>
+      <pre><code class="language-html">&lt;it-carousel
+  unstyled id="example5b"&gt;
+  &lt;img src="img1.jpg"&gt;
+  &lt;img src="img2.jpg"&gt;
+  &lt;img src="img3.jpg"&gt;
+&lt;/it-carousel&gt;</code></pre>
+
+    </details>
+
 
 
 

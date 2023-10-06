@@ -54,6 +54,7 @@ See the <a href="https://kpander.github.io/carousel-js/index.html">Examples page
 | `pagination-label`    | `"{{ index }}"` | String template for each pagination button. Will replace any instance of `"{{ index }}"` with the current slide number. |
 | `pagination-values`   | `null`          | Tilde-delimited list of values to use for the pagination buttons. E.g., "First~Second~Third". If not provided, the `pagination-template` label will be used. |
 | `template-id`         | `null`          | If this attribute exists, the carousel will use the HTML markup from the element with the `id` specified by this attribute. |
+| `unstyled`            | `null`          | If this attribute exists, default CSS styling will not be applied to the carousel. |
 
 **The only attributes that are dynamic are:**
 

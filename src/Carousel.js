@@ -32,6 +32,8 @@ ${styles}
   }
 
   _getDefaultStyles() {
+    if (this.hasAttribute("unstyled")) return "";
+
     return `
 <style>
 
