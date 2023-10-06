@@ -54,6 +54,7 @@ See the <a href="https://kpander.github.io/carousel-js/index.html">Examples page
 | `pagination-label`    | `"{{ index }}"` | String template for each pagination button. Will replace any instance of `"{{ index }}"` with the current slide number. |
 | `pagination-values`   | `null`          | Tilde-delimited list of values to use for the pagination buttons. E.g., "First~Second~Third". If not provided, the `pagination-template` label will be used. |
 | `template-id`         | `null`          | If this attribute exists, the carousel will use the HTML markup from the element with the `id` specified by this attribute. |
+| `unstyled`            | `null`          | If this attribute exists, default CSS styling will not be applied to the carousel. |
 
 **The only attributes that are dynamic are:**
 
@@ -215,11 +216,32 @@ $ npm run build
 $ npm publish
 ```
 
+## Tests
+
+You may need to perform a one-time installation of browsers for automated testing.
+
+```bash
+$ npx playwright install
+```
+
+To run the existing tests:
+
+```bash
+$ npm run test
+```
+
+To run the tests and see the test UI:
+
+```bash
+$ npm run test:ui
+```
+
+All tests are saved in the `/tests/` folder. They're written for the Playwright test framework. See the <a href="https://playwright.dev/docs/intro">Playwright documentation</a> for more information.
+
 
 # TODO
 
   - Option to disable wrap for 'Next' on the last slide, 'Previous' on the first
-  - Front-end tests (cypress?)
   - Proper accessible implementation
 
 

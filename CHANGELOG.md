@@ -1,5 +1,12 @@
 # carousel-js Changelog
 
+  - v3.1.0 (2023-10-05)
+    - Feature: adds `unstyled` attribute to allow disabling the default styling of the carousel
+      - See [Github issue](https://github.com/kpander/carousel-js/issues/15)
+
+  - v3.0.1 (2023-09-28)
+    - Maintenance: adds integration tests via Playwright
+
   - v3.0.0 (2023-09-22)
     - Breaking change: element name changed to `<it-carousel>`
     - Breaking change: Carousel HTML structure and available `::part` attributes have changed
